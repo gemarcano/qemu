@@ -313,6 +313,8 @@ nettle_kdf="no"
 gcrypt=""
 gcrypt_hmac="no"
 gcrypt_kdf="no"
+gnutls_hash=""
+gcrypt=""
 vte=""
 virglrenderer=""
 tpm="yes"
@@ -1124,10 +1126,13 @@ for opt do
   ;;
   --enable-gnutls) gnutls="yes"
   ;;
+<<<<<<< HEAD
   --disable-nettle) nettle="no"
   ;;
   --enable-nettle) nettle="yes"
   ;;
+=======
+>>>>>>> 023d7c1acb... Replaced gnutls with gcrypt, fully working RSA and AES(for some keyslots)
   --disable-gcrypt) gcrypt="no"
   ;;
   --enable-gcrypt) gcrypt="yes"
@@ -1353,8 +1358,12 @@ disabled with --disable-FEATURE, default is enabled if available:
   sparse          sparse checker
 
   gnutls          GNUTLS cryptography support
+<<<<<<< HEAD
   nettle          nettle cryptography support
   gcrypt          libgcrypt cryptography support
+=======
+  gcrypt          gcrypt cryptography support
+>>>>>>> 023d7c1acb... Replaced gnutls with gcrypt, fully working RSA and AES(for some keyslots)
   sdl             SDL UI
   --with-sdlabi     select preferred SDL ABI 1.2 or 2.0
   gtk             gtk UI
@@ -2471,6 +2480,7 @@ EOF
     fi
 fi
 
+<<<<<<< HEAD
 if test "$gcrypt" = "yes" && test "$nettle" = "yes"
 then
     error_exit "Only one of gcrypt & nettle can be enabled"
@@ -2496,6 +2506,21 @@ fi
 have_ifaddrs_h=yes
 if ! check_include "ifaddrs.h" ; then
   have_ifaddrs_h=no
+=======
+##########################################
+# gcrypt probe
+if test "$gcrypt" != "no"; then
+    if has "libgcrypt-config"; then
+        gcrypt_cflags=`libgcrypt-config --cflags`
+        gcrypt_libs=`libgcrypt-config --libs`
+        libs_softmmu="$gcrypt_libs $libs_softmmu"
+        libs_tools="$gcrypt_libs $libs_tools"
+        QEMU_CFLAGS="$QEMU_CFLAGS $gcrypt_cflags"
+        gcrypt="yes"
+    else
+        feature_not_found "gcrypt" "Install gcrypt devel"
+    fi
+>>>>>>> 023d7c1acb... Replaced gnutls with gcrypt, fully working RSA and AES(for some keyslots)
 fi
 
 ##########################################
@@ -5026,12 +5051,20 @@ echo "GTK GL support    $gtk_gl"
 echo "VTE support       $vte $(echo_version $vte $vteversion)"
 echo "TLS priority      $tls_priority"
 echo "GNUTLS support    $gnutls"
+<<<<<<< HEAD
 echo "GNUTLS rnd        $gnutls_rnd"
 echo "libgcrypt         $gcrypt"
 echo "libgcrypt kdf     $gcrypt_kdf"
 echo "nettle            $nettle $(echo_version $nettle $nettle_version)"
 echo "nettle kdf        $nettle_kdf"
 echo "libtasn1          $tasn1"
+=======
+echo "GNUTLS hash       $gnutls_hash"
+echo "GNUTLS gcrypt     $gnutls_gcrypt"
+echo "GNUTLS nettle     $gnutls_nettle ${gnutls_nettle+($nettle_version)}"
+echo "gcrypt            $gcrypt"
+echo "VTE support       $vte"
+>>>>>>> 023d7c1acb... Replaced gnutls with gcrypt, fully working RSA and AES(for some keyslots)
 echo "curses support    $curses"
 echo "virgl support     $virglrenderer"
 echo "curl support      $curl"
@@ -5431,6 +5464,9 @@ fi
 # if this macro is set.
 if test "$have_fsxattr" = "yes" ; then
     echo "HAVE_FSXATTR=y" >> $config_host_mak
+fi
+if test "$gcrypt" = "yes" ; then
+  echo "CONFIG_GCRYPT=y" >> $config_host_mak
 fi
 if test "$vte" = "yes" ; then
   echo "CONFIG_VTE=y" >> $config_host_mak
