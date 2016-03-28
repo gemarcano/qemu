@@ -107,6 +107,7 @@ found online via the QEMU website:
 -- End
 =======
 - QEMU team
+<<<<<<< HEAD
 
 qemu with CTR support
 ==============
@@ -152,4 +153,3 @@ Credits
  - qemu maintainers and devs, obviously
  - 3dbrew for most of the info
  - Normmatt for sdmmc
->>>>>>> d863e7ec00... IRQ for sdmmc, add immediate mode dma, adjusted the pit freq a tad
