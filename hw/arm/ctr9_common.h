@@ -1,6 +1,4 @@
 #pragma once
-#include <inttypes.h>
-#include <stdbool.h>
 
 typedef struct ctr9_iofifo
 {

@@ -1,3 +1,6 @@
+#include "qemu/osdep.h"
+#include "qapi/error.h"
+#include "cpu.h"
 #include "hw/sysbus.h"
 #include "hw/arm/arm.h"
 #include "hw/devices.h"
@@ -275,16 +278,12 @@ static void ctr9_init(MachineState *machine)
 	arm_load_kernel(cpu, &ctr9_binfo);
 }
 
-static QEMUMachine ctr9_machine = {
-	.name = "ctr9",
-	.desc = "nintendo 3ds (ARM946)",
-	.init = ctr9_init,
-	.block_default_type = IF_SCSI,
-};
-
-static void ctr9_machine_init(void)
+static void ctr9_machine_init(MachineClass *mc)
 {
-	qemu_register_machine(&ctr9_machine);
+	mc->desc = "nintendo 3ds (ARM946)";
+	mc->init = ctr9_init;
+	mc->block_default_type = IF_SCSI;
 }
 
-machine_init(ctr9_machine_init);
+DEFINE_MACHINE("ctr9", ctr9_machine_init);
+

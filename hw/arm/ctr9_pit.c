@@ -1,3 +1,4 @@
+#include "qemu/osdep.h"
 #include "hw/sysbus.h"
 #include "hw/arm/arm.h"
 #include "hw/devices.h"
@@ -60,7 +61,7 @@ static void ctr9_timer_init(SysBusDevice *dev, ctr9_timer_state *s, ctr9_timer_s
 	s->next = n;
 	
 	bh = qemu_bh_new(ctr9_timer_trigger, s);
-	s->ptimer = ptimer_init(bh);
+	s->ptimer = ptimer_init(bh, PTIMER_POLICY_DEFAULT);
 	ptimer_set_limit(s->ptimer, 0xFFFF, 1);
 }
 

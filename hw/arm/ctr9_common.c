@@ -1,3 +1,4 @@
+#include "qemu/osdep.h"
 #include "ctr9_common.h"
 #include "qemu-common.h"
 

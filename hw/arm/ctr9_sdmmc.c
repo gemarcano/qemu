@@ -1,8 +1,9 @@
+#include "qemu/osdep.h"
 #include "hw/sysbus.h"
 #include "hw/arm/arm.h"
 #include "hw/devices.h"
 #include "sysemu/block-backend.h"
-#include "hw/sd.h"
+#include "hw/sd/sd.h"
 #include "hw/boards.h"
 
 #define TYPE_CTR9_SDMMC "ctr9-sdmmc"
