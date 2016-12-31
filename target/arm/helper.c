@@ -2410,10 +2410,11 @@ static const ARMCPRegInfo pmsav5_cp_reginfo[] = {
 static const ARMCPRegInfo nintendo_v5_cp_reginfo[] = {
     { .name = "DTCM",
       .cp = 15, .opc1 = 0, .crn = 9, .crm = 1, .opc2 = 0,
-      .access = PL1_W, .type = ARM_CP_NOP },
+      .access = PL1_RW, .type = ARM_CP_CONST | ARM_CP_NO_RAW },
     { .name = "ITCM",
       .cp = 15, .opc1 = 0, .crn = 9, .crm = 1, .opc2 = 1,
-      .access = PL1_W, .type = ARM_CP_NOP },
+      .access = PL1_RW, .type = ARM_CP_CONST | ARM_CP_NO_RAW,
+	  .resetvalue = 0},
     REGINFO_SENTINEL
 };
 
